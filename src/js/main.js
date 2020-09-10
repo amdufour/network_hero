@@ -3,10 +3,8 @@
 /*************************************/
 
 // Screen size's related variables
-const screenWidth = window.innerWidth;
-const screenHeight = window.innerHeight;
-const width = screenWidth > 1200 ? (1200 / 12 * 8) : (screenWidth - 30);
-const height = screenHeight - 100;
+const width = window.innerWidth;
+const height = window.innerHeight;
 
 // Colors
 const colors = [
@@ -172,104 +170,13 @@ const createVisualization = () => {
   
   const nodeGroup = viz.append('g')
     .attr('class', 'nodes-group')
-    .selectAll('g.node')
+    .selectAll('circle')
       .data(nodes)
-      .join('g')
-        .attr('id', d => `node-${d.id}`)
-        .attr('class', d => `node node-${d.scale}`)
-        .on('mouseenter', d => {
-          d3.event.stopPropagation();
-          isActiveElement ? highlightNode(d.id) : highlightElements(d.id, false);
-          showInfo(d);
-        })
-        .on('mouseleave', d => {
-          isActiveElement
-            ? !highlightedNodes.includes(d.id) ? unHighlightNode(d.id) : null
-            : unhighlightElements();
-          hideInfo();
-        })
-        .on('click', d => {
-          isActiveElement = true;
-          highlightElements(d.id, true);
-          addBackgroundCircle(d.id, getRadius(d.estimated_people_impacted));
-        });
+      .join('circle')
+      .attr('r', d => getRadius(d.estimated_people_impacted))
+      .attr('fill', d => getColor(d.type).hex)
+      .attr('stroke', 'none');
 
-  // Append nodes with "National" scale
-  const nodesNationalGroup = d3.selectAll('.node-National')
-    .attr('fill', d => getColor(d.type).hex);
-  const nodesNationalOuter = nodesNationalGroup.append('circle')
-    .attr('r', d => getRadius(d.estimated_people_impacted))
-    .attr('fill-opacity', 0.7)
-    .attr('stroke', d => getColor(d.type).hex)
-    .attr('stroke-width', 2);
-  const nodesNationalInner = nodesNationalGroup.append('circle')
-    .attr('r', d => {
-      const radius = getRadius(d.estimated_people_impacted);
-      return 0.75 * radius;
-    })
-    .attr('stroke', 'none');
-
-  // Append nodes with "Regional" scale
-  const nodesRegional = d3.selectAll('.node-Regional')
-  const nodesRegionalOuter =  nodesRegional.append('circle')
-    .attr('r', d => getRadius(d.estimated_people_impacted))
-    .attr('fill', d => getColor(d.type).hex)
-    .attr('fill-opacity', 0.8)
-    .attr('stroke', 'none');
-  const nodesRegionalInner = nodesRegional.append('circle')
-    .attr('r', d => 0.3 * getRadius(d.estimated_people_impacted))
-    .attr('fill', white)
-    .attr('stroke', 'none');
-
-  // Append nodes with "Continental" scale
-  const nodesContinentalGroup = d3.selectAll('.node-Continental')
-    .attr('fill', white)
-    .attr('stroke', d => getColor(d.type).hex);
-  const nodesContientalOuter = nodesContinentalGroup.append('circle')
-    .attr('class', 'outer-circle')
-    .attr('r', d => getRadius(d.estimated_people_impacted))
-    .attr('stroke-width', 2);
-  const nodesContientalInner = nodesContinentalGroup.append('circle')
-    .attr('class', 'inner-circle')
-    .attr('r', d => getRadius(d.estimated_people_impacted) - 4)
-    .attr('stroke-width', 1);
-
-  // Append nodes with "Bi-National" scale
-  const nodesBiNationalGroup = d3.selectAll('.node-Bi-National')
-    .attr('fill', d => getColor(d.type).hex)
-    .attr('fill-opacity', 0.6)
-    .attr('stroke', d => getColor(d.type).hex)
-    .attr('stroke-width', 1);
-  const nodesBiNationalLeft = nodesBiNationalGroup.append('circle')
-    .attr('class', 'left-circle')
-    .attr('r', d => getRadius(d.estimated_people_impacted));
-  const nodesBiNationalRight = nodesBiNationalGroup.append('circle')
-    .attr('class', 'right-circle')
-    .attr('r', d => getRadius(d.estimated_people_impacted));
-
-  // Append nodes with "Global" scale
-  const nodesGlobalGroup = d3.selectAll('.node-Global')
-    .attr('fill', d => getColor(d.type).hex)
-    .attr('fill-opacity', 0.6)
-    .attr('stroke', d => getColor(d.type).hex)
-    .attr('stroke-width', 1);
-  for (let i = 0; i < 5; i++) {
-    nodesGlobalGroup.append('circle')
-      .attr('class', `circle-global-${i+1}`)
-      .attr('r', d => 0.5 * getRadius(d.estimated_people_impacted))
-      .attr('cx', d => {
-        const angle = 360 / 5;
-        const radius = getRadius(d.estimated_people_impacted);
-        const factor = radius >= 30 ? 0.3 : 0.5;
-        return factor * radius * Math.sin(degreeToRadian((2*i + 1) * angle));
-      })
-      .attr('cy', d => {
-        const angle = 360 / 5;
-        const radius = getRadius(d.estimated_people_impacted);
-        const factor = radius >= 30 ? 0.3 : 0.5;
-        return factor * radius * Math.cos(degreeToRadian((2*i + 1) * angle));
-      });
-  }
 
 
   /*************************************/
@@ -282,36 +189,11 @@ const createVisualization = () => {
         return generatePath(d.source.x, d.source.y, d.target.x, d.target.y);
       });
 
-    nodesNationalOuter
+    d3.selectAll('circle')
+      // .attr('cx', d => d.x)
+      // .attr('cy', d => d.y);
       .attr('cx', d => d.x = Math.max(radiusMax, Math.min(width - radiusMax, d.x)))
       .attr('cy', d => d.y = Math.max(radiusMax, Math.min(height - radiusMax, d.y)));
-    nodesNationalInner
-      .attr('cx', d => d.x = Math.max(radiusMax, Math.min(width - radiusMax, d.x)))
-      .attr('cy', d => d.y = Math.max(radiusMax, Math.min(height - radiusMax, d.y)));
-
-    nodesRegionalOuter
-      .attr('cx', d => d.x = Math.max(radiusMax, Math.min(width - radiusMax, d.x)))
-      .attr('cy', d => d.y = Math.max(radiusMax, Math.min(height - radiusMax, d.y)));
-    nodesRegionalInner
-      .attr('cx', d => d.x = Math.max(radiusMax, Math.min(width - radiusMax, d.x)))
-      .attr('cy', d => d.y = Math.max(radiusMax, Math.min(height - radiusMax, d.y)));
-
-    nodesContientalOuter
-      .attr('cx', d => d.x = Math.max(radiusMax, Math.min(width - radiusMax, d.x)))
-      .attr('cy', d => d.y = Math.max(radiusMax, Math.min(height - radiusMax, d.y)));
-    nodesContientalInner
-      .attr('cx', d => d.x = Math.max(radiusMax, Math.min(width - radiusMax, d.x)))
-      .attr('cy', d => d.y = Math.max(radiusMax, Math.min(height - radiusMax, d.y)));
-
-    nodesBiNationalLeft
-      .attr('cx', d => d.x = Math.max(radiusMax, Math.min(width - radiusMax, d.x - 7)))
-      .attr('cy', d => d.y = Math.max(radiusMax, Math.min(height - radiusMax, d.y)));
-    nodesBiNationalRight
-      .attr('cx', d => d.x = Math.max(radiusMax, Math.min(width - radiusMax, d.x + 7)))
-      .attr('cy', d => d.y = Math.max(radiusMax, Math.min(height - radiusMax, d.y)));
-
-    nodesGlobalGroup
-      .attr('transform', d => `translate(${d.x = Math.max(radiusMax, Math.min(width - radiusMax, d.x))},${d.y = Math.max(radiusMax, Math.min(height - radiusMax, d.y))})`);
   });
 
 

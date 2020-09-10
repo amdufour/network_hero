@@ -43,14 +43,21 @@ const getGroup = (type) => {
 // Get position of a group
 const getPosition = (type) => {
   const group = getGroup(type);
-  const index = groups.findIndex(item => item === group);
-  const angle = 360 / (groups.length * 2);
-  const r = width / 3.5; // Distance from the center of the visualization
-
-  const posX = (width / 2) + (r * Math.sin(degreeToRadian((2*index + 1) * angle)));
-  const posY = (width / 2) + (r * Math.cos(degreeToRadian((2*index + 1) * angle)));
-
-  return [posX, posY];
+  
+  switch (group) {
+    case 'communications':
+      return [3*width/4, height/10];
+    case 'civics':
+      return [3.5*width/4, height/2];
+    case 'community':
+      return [2*width/3, 3*height/4];
+    case 'economy':
+      return [width/3, height/2];
+    case 'technology':
+      return [width/6, 2*height/10];
+    case 'education':
+      return [0, 9*height/10];
+  }
 };
 
 // Get color of a node
