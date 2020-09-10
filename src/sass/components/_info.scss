@@ -1,0 +1,89 @@
+// Info box
+#info {
+  width: 100%;
+  margin-left: 40px;
+  background: $white;
+  opacity: 0;
+  transition-property: opacity;
+  @include easeSineOut;
+  &.visible {
+    opacity: 1;
+    @include easeSineIn;
+  }
+
+  // Header
+  .box-header {
+    margin-bottom: 20px;
+  }
+  .type {
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+  .name {
+    display: inline-block;
+    position: relative;
+    padding-right: 30px;
+    h3 {
+      display: inline-block;
+      position: relative;
+      z-index: 10;
+      margin: 0 0 3px;
+      font-family: $fontSecondary;
+      font-size: 2.2rem;
+      font-weight: 700;
+    }
+    .name-background {
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      bottom: 2px;
+      width: 100%;
+      height: 52%;
+      background: $grey;
+      opacity: 0.5;
+    }
+  }
+  .tags {
+    font-size: 1.2rem;
+  }
+
+  // Body
+  .mission-container {
+    padding-left: 13px;
+    border-left: 2px solid $text;
+    font-size: 1.5rem;
+    text-transform: capitalize;
+    .quotation {
+      font-family: $fontSecondary;
+    }
+  }
+  sup {
+    font-size: 1rem;
+  }
+  .facts {
+    margin: 20px 0;
+    padding-left: 0;
+    list-style: none;
+    li {
+      margin: 10px 0;
+    }
+    sup {
+      margin-left: 1px;
+    }
+  }
+  .fact-url {
+    border-bottom: 2px solid;
+    &.link-red { border-bottom-color: $red; }
+    &.link-orange { border-bottom-color: $orange; }
+    &.link-yellow { border-bottom-color: $yellow; }
+    &.link-pistachio { border-bottom-color: $pistachio; }
+    &.link-teal { border-bottom-color: $teal; }
+    &.link-blue { border-bottom-color: $blue; }
+  }
+  .notes {
+    font-size: 1.2rem;
+    sup {
+      margin-right: 1px;
+    }
+  }
+}

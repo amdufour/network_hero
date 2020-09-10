@@ -1,0 +1,36 @@
+// Grid
+$xl: 1600px;
+$lg: 1200px;
+$md: 768px;
+$sm: 576px;
+$gutter: 30px;
+$container: $lg;
+
+// Colors
+$white: #FBFDFE;
+$grey: #727A87;
+$greyDark: #5E6570;
+$greyPale: #C2C3C7;
+
+$bg: $white;
+$text: #1F2933;
+
+$red: #F94144;
+$orange: #F3722C;
+$yellow: #F9C74F;
+$pistachio: #90BE6D;
+$teal: #43AA8B;
+$blue: #577590;
+
+// Border-Radius
+$radius: 3px;
+
+// Transitions
+@mixin easeSineOut {
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.61, 1, 0.88, 1);
+}
+@mixin easeSineIn {
+  transition-duration: 100ms;
+  transition-timing-function: cubic-bezier(0.12, 0, 0.39, 0);
+}

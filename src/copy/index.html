@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Organizations working against polarization</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+	<main class="organizations-network-page">
+		<div class="container">
+			<h1>Organizations helping maintain our democracy</h1>
+			<div class="row">
+				<div class="col-12 col-md-9">
+					<p>Polarization in Western Democracies seem is a major concern and lead to new and existing nonprofit orgnizations (NGOs) to focus on anti-polarization. These NGOs promote our interdependence as humans though education, community-based interventions, political life and technology, to name a few. Some focus their actions in a specific city, while others reached people all around the world. But many of them share common fields of action, making them deeply interconnected.</p>
+				</div>
+			</div>
+
+			<section class="legend-section">
+				<h2>How to read this visualization</h2>
+				<div class="row">
+					<div class="col-12 col-md-4">
+						<h3>Main focus of an organization</h3>
+						<ul class="row legend legend-main legend-color">
+							<div class="col-12 col-md-6">
+								<li class="legend-color-red">Communication</li>
+								<li class="legend-color-orange">Economy</li>
+								<li class="legend-color-yellow">Civics</li>
+							</div>
+							<div class="col-12 col-md-6">
+								<li class="legend-color-pistachio">Education & Research</li>
+								<li class="legend-color-teal">Technology</li>
+								<li class="legend-color-blue">Community</li>
+							</div>
+						</ul>
+					</div>
+					<div class="col-12 col-md-4">
+						<h3>Scale at which an organization operates</h3>
+						<ul class="row legend legend-main legend-scale">
+							<div class="col-12 col-md-6">
+								<li class="legend-national">National</li>
+								<li class="legend-regional">Regional or Local</li>
+								<li class="legend-bi-nations">Between 2 nations</li>
+							</div>
+							<div class="col-12 col-md-6">
+								<li class="legend-global">Global</li>
+								<li class="legend-continental">Continental</li>
+							</div>
+						</ul>
+					</div>
+					<div class="col-12 col-md-4">
+						<h3>Estimated people reached by an organization</h3>
+						<div class="legend legend-main legend-radius"></div>
+					</div>
+				</div>
+				<div class="row legend legend-secondary legend-links">
+					<div class="col-12">
+						<h3>How the organizations relate to each other</h3>
+					</div>
+					<div class="col-12 col-md-4">
+						<p>Organizations are linked to each other by common fields of action. For example, organizations focusing on refugees are all linked together.</p>
+						<p>The more common fields of action 2 organizations share, the thicker the link between them.</p>
+					</div>
+					<div class="col-12 col-md-4">
+						<p class="icon mouseover">By placing your mouse over an organization, these links and related organizations will be highlighted.</p>
+						<p class="icon mouseclick">Clicking on an organization allows to freeze this highlighted state and explore related organizations.</p>
+					</div>
+				</div>
+			</section>
+			<section class="visualization-section">
+				<h2>The visualization</h2>
+				<div class="row">
+					<div class="col-12 col-md-8">
+						<div id="action">
+							<p>These connected organizations share the following <span class="conjugate">field</span> of action:<span class="action-field"></span></p>
+						</div>
+					</div>
+				</div>
+				<div class="row align-items-center">
+					<div class="col-12 col-md-8">
+						<div id="visualization"></div>
+					</div>
+					<div class="col-12 col-md-4">
+						<div id="info">
+							<div class="box-header">
+								<div class="type"></div>
+								<div class="name">
+									<h3></h3>
+									<div class="name-background"></div>
+								</div>
+								<div class="tags"></div>
+							</div>
+							<div class="box-body">
+								<div class="mission-container">
+									<span class="quotation quotation-left">&ldquo;</span>
+									<span class="mission-statement"></span>
+									<span class="quotation quotation-right">&#8221;</span>
+								</div>
+								<ul class="facts">
+									<li><span class="label">Scale: </span><span class="fact fact-scale"></span></li>
+									<li><span class="label">Estimated people impacted: </span><span class="fact fact-impact"></span><sup>*</sup></li>
+									<li><a href="/" target="_blank" class="fact fact-url"></a></li>
+								</ul>
+								<div class="notes"><sup>*</sup>Between 2015 and 2017</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="notes-section">
+				<h2>Notes & References</h2>
+				<div class="row">
+					<div class="col-12 col-md-9">
+						<p>This project originates from the desire to visualize how the work of nonprofit organizations (NGOs) is deeply interweened and conjugates to have even more impact on our world. Open source datasets on the subject didn’t seem to exist at the moment of creation, but I found a great dataset grouping NGOs focusing on reducing polarization, a topic very dear to my hearth.</p>
+						<p>This dataset is by no mean complete and focus mainly on NGOs operating from the US. But still, exploring how much they are interconnected is facinating to me.</p>
+						<p>The original dataset was collected manually in 2018 by <a href="https://data.world/carlvlewis" target="_blank">Carl V. Lewis</a> and can be found on <a href="https://data.world/carlvlewis/interdependence-ngos-by-funding-reach" target="_blank">data.world</a>.</p>
+						<p>A few organizations which are part of the sharing eonomy and technology categories do not appear to be nonprofit anymore. I decided to keep them in the dataset since their work sheds an interesting light on how, by making knowledge and information affordable and easy to access, we support democracy and the growth of every individual.</p>
+						<p>To create this visualization, missing information has been added regarding the mission and the scale of some of the organizations.</p>
+					</div>
+				</div>
+			</section>
+		</div>
+	</main>
+
+	<!-- Scripts -->
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/helper.js"></script>
+	<script src="js/interactions.js"></script>
+	<script src="js/legend.js"></script>
+</body>
+</html>
